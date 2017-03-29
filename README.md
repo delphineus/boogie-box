@@ -58,3 +58,6 @@ View the project roadmap [here](https://waffle.io/remote-control-pigeon/boogie-b
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+
+[![Stories in Ready](https://badge.waffle.io/delphineus/boogie-box.png?label=ready&title=Ready)](http://waffle.io/delphineus/boogie-box)

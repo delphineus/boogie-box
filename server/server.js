@@ -15,7 +15,7 @@ var io = socket(server);
 
 //gets called everytime for all routes except GET /api/url by invoking the "next()";
 app.use(function (req, res, next) {
-  if(req.method !== 'GET') {
+  if (req.method !== 'GET') {
     //broadcast to all users that there is a change in queue
     io.emit('queueChange', {change: true});
   }
