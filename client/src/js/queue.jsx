@@ -98,17 +98,18 @@ class QueueElement extends React.Component {
     }
   }
 
-  componentDIdMount() {
+  componentDidMount() {
+    var self = this;
     apiHelper.getVotes(function(err, votes) {
+      console.log('this is', this);
       if (err) {
         console.error('Error getting votes:', err);
       } else {
         _.each(votes, function(vote) {
-          this.props.votedOn[vote.id] = vote.type;
-          console.log('VOTE DATA:', vote);
-        }).bind(this);
+          self.props.votedOn[vote.id] = vote.type;
+        });
       }
-    }).bind(this);
+    });
   }
 
   render() {
