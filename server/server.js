@@ -1,6 +1,7 @@
 var app = require('./app');
 var config = require('./config');   //contains port & YOUTUBE_API_KEY
 var socket = require('socket.io');
+var ChatData = require('./db').ChatData;
 
 //setting port on server side
 var port = config.port;
@@ -35,6 +36,9 @@ io.on('connection', function (socket) {
   //all users get pushed in the masterClient array (in order as they join)
   masterClient.push(socket.id);
   console.log(masterClient.length); //shows in console # of users connected
+  if (masterClient.length === 1) {
+    ChatData.sync({force: true});
+  }
 
   //when admin raises/calls setTime from frontend
   socket.on('setTime', function (data) {

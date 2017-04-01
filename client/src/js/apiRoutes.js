@@ -172,7 +172,7 @@ var getUserFromSession = function(cb = defaultCallback) {
   });
 };
 
-// Creating user requesta
+// Creating user request
 var postUserToSession = function(user, cb = defaultCallback) {
 
   var user = { name: user };
@@ -185,7 +185,39 @@ var postUserToSession = function(user, cb = defaultCallback) {
       cb(null, response);
     },
     error: function(err) {
-      console.log('error on posting user', err);
+      console.error('error on posting user:', err);
+      cb(err);
+    }
+  });
+};
+
+
+// Get votes from session if any
+var getVotes = function(cb = defaultCallback) {
+  $.ajax({
+    method: 'GET',
+    url: '/api/votes',
+    success: function(votes) {
+      cb(null, votes);
+    },
+    error: function(err) {
+      console.error('error on getting votes:', err);
+      cb(err);
+    }
+  });
+};
+
+// Post vote to session
+var postVote = function(vote, cb = defaultCallback) {
+  $.ajax({
+    method: 'POST',
+    url: '/api/votes',
+    data: vote,
+    success: function(response) {
+      cb(null, response);
+    },
+    error: function(err) {
+      console.error('error on posting vote:', err);
       cb(err);
     }
   });
@@ -193,7 +225,6 @@ var postUserToSession = function(user, cb = defaultCallback) {
 
 // Exports all the api helpers. use apiHelper.<method> to invoke any
 // function in this file.
-
 window.apiHelper = {
   getVideos: getVideos,
   postVideo: postVideo,
@@ -202,5 +233,7 @@ window.apiHelper = {
   getChat: getChat,
   postChat: postChat,
   getUserFromSession: getUserFromSession,
-  postUserToSession: postUserToSession
+  postUserToSession: postUserToSession,
+  getVotes: getVotes,
+  postVote: postVote
 };

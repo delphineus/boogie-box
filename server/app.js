@@ -150,16 +150,24 @@ app.use(session({
   activeDuration: 5 * 60 * 1000,
 }));
 
+// Store and retrieve username
 app.get('/api/user', function(req, res) {
-  req.session.user && res.send(req.session.user) || res.status(404).send('No username stored');
+  req.session.user && res.send(req.session.user) || res.send('No username stored');
 });
 
 app.post('/api/user', function(req, res, next) {
-
   req.session.user = req.body.name;
-
   res.send(req.session.user + ' stored in session');
 });
 
+// Store and retrieve vote data
+app.get('/api/votes', function(req, res) {
+  req.session.votes && res.send(req.session.votes) || res.send('No votes stored');
+});
+
+app.post('/api/votes', function(req, res, next) {
+  req.session.votes ? req.session.votes.push(req.body) : req.session.votes = [req.body];
+  res.send('New vote stored in session');
+});
 
 module.exports = app;

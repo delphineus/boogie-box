@@ -26,12 +26,6 @@ class ChatInput extends React.Component {
       apiHelper.postChat(newMessage, function() {
         this.props.updateChat();
       }.bind(this));
-
-      // This is a temporary message to show the user
-      // that their message was posted. When they receive
-      //  a new message, the view will rerender and this
-      // will be overwritten with the actual message
-      this.state.messages.push(newMessage);
     }.bind(this));
 
   }
@@ -67,7 +61,12 @@ class ChatInput extends React.Component {
     };
     this.props.socket.emit('new message', newMessage);
     newMessage.id=this.state.messages.length;
+
+    // I can't tell if either of these is actually doing anything
+    // First line was always here. I added the second one
     this.state.messages.push(newMessage);
+    this.setState({ messages: this.state.messages });
+
     this.props.updateChat();
   }
 

@@ -76,6 +76,19 @@ class QueueElement extends React.Component {
   // with the server side to post that vote.
   vote(type) {
     if(!(this.props.votedOn[this.props.video.id])) {
+      // tell session to save choice with id
+      apiHelper.postVote(
+        {
+          id: this.props.video.id,
+          type: type
+        }, function(err) {
+          if (err) {
+            console.error('Error posting like:', err);
+          } else {
+            console.log('vote posted to session');
+          }
+        });
+
       if (type === 'up') {
         apiHelper.vote({upVote: true}, this.props.video);
       } else if (type === 'down') {
@@ -83,6 +96,20 @@ class QueueElement extends React.Component {
       }
       this.props.votedOn[this.props.video.id] = type;
     }
+  }
+
+  componentDidMount() {
+    var self = this;
+    apiHelper.getVotes(function(err, votes) {
+      console.log('this is', this);
+      if (err) {
+        console.error('Error getting votes:', err);
+      } else {
+        _.each(votes, function(vote) {
+          self.props.votedOn[vote.id] = vote.type;
+        });
+      }
+    });
   }
 
   render() {
