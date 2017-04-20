@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/delphineus/boogie-box.png?label=ready&title=Ready)](https://waffle.io/delphineus/boogie-box)
 # Boogie-Box
 
 > Everyone and anyone who loves tasty jams, and sharing those scrumptous beats with friends.
